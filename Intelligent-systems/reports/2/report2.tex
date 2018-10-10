@@ -1,0 +1,268 @@
+\documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
+\usepackage[luatex,draft]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
+\usepackage{here}                               % 図表の位置を強制して出力
+\usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
+\usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
+\usepackage{setspace}                           % 行間制御
+\usepackage{ulem}                               % 下線や取り消し線など
+\usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
+\usepackage{multirow}                           % 表で行結合
+\usepackage{multicol}                           % 表で列結合
+\usepackage{hhline}                             % 表で 2 重線
+\usepackage[table]{xcolor}                      % カラー
+\usepackage{tikz}                               % 図描画用
+\usepackage[framemethod=tikz]{mdframed}         % 文章を囲むとき用
+\usepackage[version=3]{mhchem}                  % 化学式
+\usepackage{siunitx}                            % 単位
+\usepackage{comment}                            % コメント
+\setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
+\usepackage{listings}
+\lstset{
+    frame=single,
+    basicstyle=\small\ttfamily,
+    tabsize=4,
+    language=python,
+    keywordstyle=\color{red},
+    stringstyle=\color{blue}
+}
+% -----ヘッダ・フッタの設定-----
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{}                                 % 左ヘッダ
+\chead{}                                 % 中央ヘッダ
+\rhead{}                                 % 右ヘッダ
+\lfoot{}                                 % 左フッタ
+\cfoot{\thepage~/~\pageref{LastPage}}    % 中央フッタ
+\rfoot{}                                 % 右フッタ
+\renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
+% -----余白の設定-----
+% これをアンコメントするとページ番号が中央からずれるから今は使わない．
+% \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}
+% -----フォントの設定-----
+% https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+% http://myfuturesightforpast.blogspot.jp/2013/12/tex-gyre.html など
+\usepackage[no-math]{fontspec}
+\usepackage{amsmath,amssymb}    % 高度な数式用
+\usepackage{mathrsfs}           % 花文字用
+% times ベース -> txfonts
+% palatino ベース -> pxfonts
+\usepackage{txfonts}
+\usepackage{bm}                 % 斜体太字ベクトル
+% Avant Garde -> TeX Gyre Adventor
+% Bookman Old Style -> TeX Gyre Bonum
+% Zapf Chancery -> TeX Gyre Chorus
+% Courier -> TeX Gyre Cursor
+% Helvetica -> TeX Gyre Heros
+% Helvetica Narrow -> TeX Gyre Heros Cn
+% Palatino -> TeX Gyre Pagella
+% New Century Schoolbook -> TeX Gyre Schola
+% Times -> TeX Gyre Termes
+\setmainfont[Ligatures=TeX]{TeXGyreTermes}
+\setsansfont[Ligatures=TeX]{TeXGyreHeros}
+\setmonofont[Scale=MatchLowercase]{TeXGyreCursor}
+\usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
+\setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
+\setsansjfont{IPAexGothic}
+\usepackage{luatexja-otf}
+% -----PDF ハイパーリンク，ブックマーク，URL の設定-----
+% オプション（\hypersetup{}）は https://texwiki.texjp.org/?hyperref 参照
+\usepackage{url}
+% -----ソースコードの設定-----
+% オプション（\lstset{}）は http://tug.ctan.org/tex-archive/macros/latex/contrib/listings/listings.pdf 参照
+% 使うときは
+% \begin{lstlisting}[language=aaaa,caption=bbbb,label=List:cccc]
+% hogehoge
+% \end{lstlisting}
+\usepackage{listings}
+\lstset{%
+  basicstyle=\ttfamily\small,%
+  frame=single,%
+  frameround=ffff,%
+  numbers=left,%
+  stepnumber=1,%
+  numbersep=1\zw,%
+  breaklines=true,%
+  tabsize=4,%
+  captionpos=t,%
+  commentstyle=\itshape}
+% -----図表等の reference の設定-----
+% 表示文字列を日本語化
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+\renewcommand{\lstlistingname}{リスト}
+\renewcommand{\abstractname}{概要}
+% 図番号等を"<章番号>.<図番号>"
+% lstlisting に関しては https://tex.stackexchange.com/questions/134418/numbering-of-listings 参照
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\AtBeginDocument{\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+% 節が進むごとに図番号等をリセット
+% http://d.hatena.ne.jp/gp98/20090919/1253367749 参照
+\makeatletter
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\@addtoreset{lstlisting}{section}
+\@addtoreset{equation}{section}
+\makeatother
+% \ref{} の簡単化
+\newcommand*{\refSec}[1]{\ref{#1}~章}
+\newcommand*{\refSsec}[1]{\ref{#1}~節}
+\newcommand*{\refSssec}[1]{\ref{#1}~項}
+\newcommand*{\refFig}[1]{\figurename~\ref{#1}}
+\newcommand*{\refTab}[1]{\tablename~\ref{#1}}
+\newcommand*{\refList}[1]{\lstlistingname~\ref{#1}}
+\newcommand*{\refEq}[1]{式~(\ref{#1})}
+% -----数式中便利な定義-----
+% https://www.library.osaka-u.ac.jp/doc/TA_LaTeX2.pdf
+% https://en.wikibooks.org/wiki/LaTeX/Mathematics など
+\newcommand{\e}{\mathrm{e}}                     % ネイピア数
+\newcommand{\imagi}{\mathrm{i}}                 % 虚数単位（i）
+\newcommand{\imagj}{\mathrm{j}}                 % 虚数単位（j）
+\newcommand{\vDel}{\varDelta}                   % デルタ大文字
+\newcommand{\veps}{\varepsilon}                 % イプシロン小文字
+\newcommand*{\paren}[1]{\left( #1 \right)}      % () を中身の大きさに合わせる
+\newcommand*{\curly}[1]{\left\{ #1 \right\}}    % {} を中身の大きさに合わせる
+\newcommand*{\bracket}[1]{\left[ #1 \right]}    % [] を中身の大きさに合わせる
+\renewcommand{\Re}{\operatorname{Re}}           % 実部
+\renewcommand{\Im}{\operatorname{Im}}           % 虚部
+\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}          % xfrac パッケージの \sfrac{}{} の代わり
+\renewcommand*\vec[1]{\mathbf{#1}}              % 矢印ベクトルは使わないので上書き．太字立体．
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\title{知能システム論第2回課題}
+\author{37186305\\航空宇宙工学専攻修士一年\\荒居秀尚}
+
+\begin{document}
+\maketitle
+\section{宿題1}
+A) 次の二乗誤差$J_1(y)$を最小化するyを$y_1$で表す。
+
+\begin{align}
+y_1 &= \argmin_{y} J_1(y) \\
+J_1(y)&=\int_a^b (x-y)^2 f(x)dx
+\end{align}
+
+この$J_1(y)$を偏微分したものが0になるのが$y_1$である。すなわち、
+\begin{align}
+\frac{\partial J_1}{\partial y} &= 2\int_a^b(x-y)f(x)dx \\
+ &= 2y\int_a^bf(x)dx-2\int_a^b x f(x) dx
+\end{align}
+これが0となるyが$y_1$であり、すなわち
+\begin{equation}
+y_1=\frac{\int_a^b x f(x) dx}{\int_a^bf(x)dx}
+\end{equation}
+$f(x)$が確率密度関数であるため、分母の積分は1となり、分子は$E[x]$であるから、
+\begin{equation}
+y_1=E[x]
+\end{equation}
+である。\\
+B) 次の絶対誤差$J_2(y)$を最小にする$y$を$y_2$で表す。
+\begin{align}
+y_2&=\argmin_{y}J_2(y) \\
+J_2(y)&=\int_a^b |x-y| f(x) dx
+\end{align}
+このとき、$y_2$はXの中央値(つまり$F(y_2)-1/2$であることを示す。\\
+
+$a$、$b$は確率密度分布の境界であることから$a\le y_2\le b$であるとして考える。
+\begin{align}
+J_2(y) &= \int_a^b |x - y| f(x) dx \\
+           &= \int_a^y (y - x) f(x) dx + \int_y^b (x - y) f(x) dx \\
+           &= y\left[ \int_a^y f(x) dx - \int_y^b f(x) dx \right] + \int_y^b x f(x) dx - \int_a^y x f(x) dx \\
+           &= y\left[ 2F(y) - 1 \right] + \int_y^b x f(x) dx - \int_a^y x f(x) dx
+\end{align}
+両辺を$y$で微分して、
+\begin{align}
+\frac{\partial J_2(y)}{\partial y} &= 2F(y) - 1 + 2y f(y) - 2y f(y) \\
+                                                &= 2F(y) - 1
+\end{align}
+よってこれを0にする$y$においては$F(y_2)=\frac{1}{2}$  となるため中央値である。
+
+\section{宿題2}
+$t$の2次式
+\begin{align}
+Q(t) &= V(tX+Y) \\
+       &= E\left\{ tX + Y - E(tX + Y) \right\}^2 \\
+       &= t^2V(X) + 2t \mathbf{Cov}(X, Y) + V(Y)
+\end{align}
+これは負にならないはずであるから、
+\begin{equation}
+\left(\mathbf{Cov}(X, Y)\right)^2\le V(X) \cdot V(Y)
+\end{equation}
+これを解けば、相関係数が
+\begin{equation}
+-1 \le \rho_{XY} \le 1
+\end{equation}
+を満たすことがわかる。
+\section{宿題3}
+ 離散型の場合の証明は同様であるので連続型変数の場合のみ証明を行う。\\
+i.
+\begin{align}
+E[XY] &= \iint_S xy \cdot f(x, y) dx dy \\
+          &= \iint_S xy \cdot h(x)g(y) dx dy \\
+          &= \int x h(x) dx \int y g(y) dy \\
+          &= E[X]E[Y]
+\end{align}
+ここで二行目の変形は独立性の仮定による。\\
+ii.
+\begin{align}
+M_{X+Y}(t) &= E[e^{t(X+Y)}] \\
+                   &= \iint e^{tx} e^{ty} f(x, y) dx dy \\
+                   &= \iint e^{tx} e^{ty} h(x)g(y) dx dy \\
+                   &= \int e^{tx} h(x) dx \int e^{ty} g(y) dy \\
+                   &= M_X(t)M_Y(t)
+\end{align}
+iii.
+i.と$\mathbf{Cov(X, Y)} = E[XY] - E[X]E[Y]$より導かれる。
+\section{宿題4}
+Python3.6.6を用いた。
+\begin{lstlisting}
+import numpy as np
+
+
+def read_data(path):
+    with open(path, "r") as f:
+        lines = f.readlines()
+    lines = [x.replace("\n", "") for x in lines]
+    data = np.array([[np.float(x.split(",")[0]),
+                      np.float(x.split(",")[1])] for x in lines])
+    return data
+
+
+if __name__ == "__main__":
+    base_path = "../../data/correlation"
+    data1_path = f"{base_path}1.txt"
+    data2_path = f"{base_path}2.txt"
+    data3_path = f"{base_path}3.txt"
+    data4_path = f"{base_path}4.txt"
+
+    data1 = read_data(data1_path)
+    data2 = read_data(data2_path)
+    data3 = read_data(data3_path)
+    data4 = read_data(data4_path)
+    data = [data1, data2, data3, data4]
+
+    for i, d in zip([1, 2, 3, 4], data):
+        print(f"Correlation{i}: {np.corrcoef(d[:, 0], d[:, 1])[0, 1]:.5f}")
+\end{lstlisting}
+結果は\ref{tab:correlation}のようになった
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l | r|} \hline
+  データ & 相関係数 \\ \hline
+  データ1 & 0.70302 \\ \hline
+  データ2 & -0.67369 \\ \hline
+  データ3 & 0.03691 \\ \hline
+  データ4 & -0.04976 \\ \hline
+\end{tabular}
+\caption{各データの相関係数}
+\label{tab:correlation}
+\end{center}
+\end{table}
+相関係数が ほぼ0となるようなデータの中にも、データ3のように各変数間で何らかの関係が容易には見出せないような場合もあれば、データ4のように可視化してみると何らかの関係が見出せそうな場合もあり、相関係数だけを眺めてデータを判断することは危険であるということの好例となっている。
+
+\bibliographystyle{junsrt}
+\bibliography{reference}
+\end{document}
