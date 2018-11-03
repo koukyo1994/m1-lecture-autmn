@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.07.0 (TeX Live 2018)  (format=lualatex 2018.10.4)  30 OCT 2018 22:12
+This is LuaTeX, Version 1.07.0 (TeX Live 2018)  (format=lualatex 2018.10.4)  3 NOV 2018 17:05
  restricted system commands enabled.
  file:line:error style messages enabled.
 **report5.tex
@@ -35,7 +35,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.155 seconds
+luaotfload | main : initialization completed in 0.110 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/luatex/luatexja/ltjsarticle.cls
 Document Class: ltjsarticle 2018/03/22 ltjsclasses 
@@ -2425,51 +2425,115 @@ i with language dflt
 luaotfload | aux : no font with id 234
 LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
 (Font)              scaled to size 13.31586pt on input line 141.
-
-
-AED: lastpage setting LastPage
 LaTeX Font Info:    Font shape `JT3/IPAexMincho(0)/bx/n' will be
-(Font)              scaled to size 9.24713pt on input line 153.
+(Font)              scaled to size 9.24713pt on input line 193.
 luaotfload | aux : font no 238 (nil) does not define feature vrt2 for script han
 i with language dflt
 luaotfload | aux : no font with id 238
 LaTeX Font Info:    Font shape `JY3/IPAexMincho(0)/bx/n' will be
-(Font)              scaled to size 9.24713pt on input line 153.
-[1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+(Font)              scaled to size 9.24713pt on input line 193.
+ [1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-(./report5.aux)
+LaTeX Font Info:    Font shape `TU/TeXGyreCursor(0)/m/n' will be
+(Font)              scaled to size 10.79132pt on input line 226.
+LaTeX Font Info:    Font shape `JT3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 9.24713pt on input line 226.
+luaotfload | aux : font no 238 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 238
+LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 9.24713pt on input line 226.
+LaTeX Font Info:    Font shape `TU/TeXGyreCursor(0)/m/n' will be
+(Font)              scaled to size 9.71219pt on input line 226.
+LaTeX Font Info:    Font shape `JT3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 8.32242pt on input line 226.
+luaotfload | aux : font no 242 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 242
+LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 8.32242pt on input line 226.
+Removing  `ltj.process_input_buffer' from `process_input_buffer'.
+Inserting `ltj.listings_unicode' at position 1 in `process_input_buffer'.
+Inserting `ltj.process_input_buffer' at position 2 in `process_input_buffer'.
+LaTeX Font Info:    Font shape `JT3/IPAexMincho(0)/m/n' will be
+(Font)              scaled to size 8.32242pt on input line 227.
+luaotfload | aux : font no 245 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 245
+LaTeX Font Info:    Font shape `JY3/IPAexMincho(0)/m/n' will be
+(Font)              scaled to size 8.32242pt on input line 227.
+LaTeX Font Info:    Font shape `TU/TeXGyreCursor(0)/m/it' will be
+(Font)              scaled to size 9.71219pt on input line 229.
+
+
+LaTeX Font Warning: Font shape `JT3/IPAexGothic(0)/m/it' undefined
+(Font)              using `JT3/IPAexGothic(0)/m/n' instead on input line 229.
+
+
+LaTeX Font Warning: Font shape `JY3/IPAexGothic(0)/m/it' undefined
+(Font)              using `JY3/IPAexGothic(0)/m/n' instead on input line 229.
+
+LaTeX Font Info:    Font shape `JT3/IPAexGothic(0)/m/it' will be
+(Font)              scaled to size 8.32242pt on input line 229.
+luaotfload | aux : font no 242 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 242
+LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/it' will be
+(Font)              scaled to size 8.32242pt on input line 229.
+[2]
+Removing  `ltj.listings_unicode' from `process_input_buffer'.
+<optim.png, id=26, 602.25pt x 401.5pt>
+File: optim.png Graphic file (type png)
+<use optim.png>
+Package luatex.def Info: optim.png  used on input line 261.
+(luatex.def)             Requested size: 421.57211pt x 281.04808pt.
+LaTeX Font Info:    Font shape `JT3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 11.09656pt on input line 267.
+luaotfload | aux : font no 248 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 248
+LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 11.09656pt on input line 267.
+ [3<./optim.png>] [4] 
+AED: lastpage setting LastPage
+[5] (./report5.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 )
 
 Here is how much of LuaTeX's memory you used:
- 34394 strings out of 494413
- 100000,953878 words of node,token memory allocated
- 7851 words of node memory still in use:
-   11 hlist, 2 vlist, 5 rule, 4 glue, 104 kern, 2974 attribute, 150 glue_spec, 1
-58 attribute_list, 2 write, 15 user_defined nodes
-   avail lists: 1:8,2:12676,3:67,4:183,5:88,6:12,7:1104,8:216,9:414,10:12
- 36962 multiletter control sequences out of 65536+600000
- 239 fonts using 69565207 bytes
- 66i,8n,117p,993b,994s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 34734 strings out of 494413
+ 476884,953878 words of node,token memory allocated
+ 12712 words of node memory still in use:
+   11 hlist, 2 vlist, 5 rule, 8 glue, 164 kern, 4554 attribute, 393 glue_spec, 2
+37 attribute_list, 2 write, 15 user_defined nodes
+   avail lists: 1:15,2:86427,3:148,4:7270,5:6576,6:74,7:6277,8:4141,9:7779,10:36
+,11:397
+ 37281 multiletter control sequences out of 65536+600000
+ 250 fonts using 82475223 bytes
+ 66i,12n,117p,993b,1040s stack positions out of 5000i,500n,10000p,200000b,100000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texl
-ive/2018/texmf-dist/fonts/truetype/public/ipaex/ipaexg.ttf></usr/local/texlive/2
-018/texmf-dist/fonts/opentype/public/tex-gyre/texgyreheros-regular.otf></usr/loc
-al/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyretermes-regular.
-otf></usr/local/texlive/2018/texmf-dist/fonts/truetype/public/ipaex/ipaexm.ttf><
-/usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyretermes-
-bold.otf></usr/local/texlive/2018/texmf-dist/fonts/type1/public/txfonts/rtxmi.pf
-b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/
-local/texlive/2018/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/te
-xlive/2018/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2018
-/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist
-/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report5.pdf (1 page, 262267 bytes).
+ive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyrecursor-italic.otf></us
+r/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyrecursor-reg
+ular.otf></usr/local/texlive/2018/texmf-dist/fonts/truetype/public/ipaex/ipaexg.
+ttf></usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyrehe
+ros-regular.otf></usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gy
+re/texgyretermes-regular.otf></usr/local/texlive/2018/texmf-dist/fonts/truetype/
+public/ipaex/ipaexm.ttf></usr/local/texlive/2018/texmf-dist/fonts/opentype/publi
+c/tex-gyre/texgyretermes-bold.otf></usr/local/texlive/2018/texmf-dist/fonts/type
+1/public/txfonts/rtxmi.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/publi
+c/txfonts/rtxr.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/txfont
+s/txex.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/txfonts/txsy.p
+fb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/lo
+cal/texlive/2018/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texliv
+e/2018/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texm
+f-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on report5.pdf (5 pages, 357696 bytes).
 
-PDF statistics: 71 PDF objects out of 1000 (max. 8388607)
- 46 compressed objects within 1 object stream
+PDF statistics: 108 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
- 16 words of extra memory for PDF output out of 10000 (max. 100000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 100000000)
 

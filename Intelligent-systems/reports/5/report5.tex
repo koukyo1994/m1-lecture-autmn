@@ -152,5 +152,228 @@
     \end{equation}
     
     \section{宿題2}
-    
+    $f(\bm{x}) = \frac{1}{2}\bm{x}^T\bm{A}\bm{x}$に対する厳密直線探索を用いた最急降下法において
+    \begin{align}
+    \bm{x}_{k+1} &= \bm{x} - \epsilon_k\nabla f(\bm{x}_k) \\
+    \nabla f(\bm{x}) &= \bm{A}\bm{x} \\
+    \epsilon_{k} &= \frac{\|\nabla f(\bm{x}_k)\|^2}{\nabla f(\bm{x}_k)^T\bm{A}\nabla f(\bm{x}_k)}
+    \end{align}
+    となる。簡単のため$\nabla f(\bm{x}_k) = \bm{g_k}$と表記すると
+    \begin{align}
+    f(\bm{x}_{k+1}) &= \frac{1}{2} \left( 
+        \bm{x}_k - \frac{
+                                   {\bm{g}_k}^T {\bm{g}_k}
+                                }{ 
+                                   {\bm{g}_k}^T \bm{A}  \bm{g}_k 
+                                } \bm{g}_k 
+       \right)^T \bm{A}  \left( 
+       \bm{x}_k - \frac{
+                                 {\bm{g}_k}^T {\bm{g}_k}
+                               }{ 
+                                 {\bm{g}_k}^T \bm{A}  \bm{g}_k 
+                               } \bm{g}_k \right) \\
+    &= \frac{1}{2} \bm{x}_k \bm{A} \bm{x}_k - \frac{
+                                                                             2 \left({\bm{g}_k}^T \bm{g}_k\right) \left( {\bm{g}_k}^T \bm{A}\bm{x}_k \right) - \left( {\bm{g}_k}^T \bm{g}_k \right)^2 }{ 2{\bm{g}_k}^T \bm{A}\bm{g}_k }
+    \end{align}
+    ここで、$\bm{g}_k = \bm{A}\bm{x}_k$であることから、上式の第二項は
+    \begin{equation}
+    \frac{
+      2\left( {\bm{g}_k}^T \bm{g}_k \right) \left( {\bm{g}_k}^T \bm{A}\bm{x}_k \right) - \left( {\bm{g}_k}^T \bm{g}_k \right)^2
+    }{
+      2{\bm{g}_k}^T \bm{A}\bm{g}_k
+    } = \frac{
+      2\left( {\bm{g}_k}^T \bm{g}_k \right)^2 - \left( {\bm{g}_k}^T \bm{g}_k \right)^2
+    }{
+      2{\bm{g}_k}^T \bm{A}\bm{g}_k
+    } = \frac{
+      \left( {\bm{g}_k}^T \bm{g}_k \right)^2
+    }{
+      2{\bm{g}_k}^T \bm{A}\bm{g}_k
+    }
+    \end{equation}
+    したがって
+    \begin{align}
+      f(\bm{x}_{k+1}) &= \left( 1 - \frac{
+        \left( {\bm{g}_k}^T \bm{g}_k \right)^2
+      }{
+        \left( {\bm{x}_k}^T \bm{A}\bm{x}_k  \right) \left( {\bm{g}_k}^T \bm{A}\bm{g}_k \right)
+      } \right)f(\bm{x}_k) \\
+      &= \left( 1 - \frac{
+        \left( {\bm{g}_k}^T \bm{g}_k \right)^2
+      }{
+        \left( {\bm{g}_k}^T \bm{A}^{-1}\bm{g}_k  \right) \left( {\bm{g}_k}^T \bm{A}\bm{g}_k \right)
+      } \right)f(\bm{x}_k)
+    \end{align}
+    カントロビッチの不等式において$c = \frac{1 - \lambda_{min} / \lambda_{max}}{1 + \lambda_{min} / \lambda_{max}}$とおくと
+    \begin{equation}
+      \frac{
+        4\lambda_{min}\lambda_{max}
+      }{
+        \left( \lambda_{max} + \lambda_{min} \right)^2
+      } = 1 - c^2 \le \frac{
+        \|\bm{g}_k \|^4
+      }{
+        {\bm{g}_k}^T \bm{A}^{-1} \bm{g}_k \cdot {\bm{g}_k}^T \bm{A} \bm{g}_k
+      }
+    \end{equation}
+    これにより
+    \begin{equation}
+    f(\bm{x}_{k+1}) \le c^2 f(\bm{x}_k)
+    \end{equation}
+    が成り立つ。
+    \section{宿題3}
+    Julia 1.0.0を用いて実装した。
+    \begin{lstlisting}
+using Plots
+
+# Functions
+f(x, y) = 10x^2 + y^2
+df(x) = [20x[1], 2x[2]]
+
+function backtrack(x, epsilon, alpha, beta)
+    x_new = x - epsilon .* df(x)
+    while f(x_new[1], x_new[2]) - f(x[1], x[2]) > -alpha * epsilon * sum(df(x).^2)
+        epsilon *= beta
+        x_new = x - epsilon .* df(x)
+    end
+    x_new
+end
+
+# Variables
+x = y = range(-5, stop=5, length=100)
+p = plot(x, y, f, st = [:contourf])
+
+niter = 5
+pos = 10 * rand(2) .- 5
+epsilon = 1.0
+alpha = 0.5
+beta = 0.8
+previous = [0.0, 0.0]
+for i in 1:niter
+    previous = copy(pos)
+    pos = backtrack(pos, epsilon, alpha, beta)
+    plot!(p[1], [previous[1], pos[1]], [previous[2], pos[2]], line = (:white, 1))
+end
+    \end{lstlisting}
+    結果は以下の図\ref{fig:optim}のようになった。
+    \begin{figure}[htbp]
+      \begin{center}
+        \includegraphics[clip, scale=0.7]{optim.png}
+        \caption{バックトラック直線探索を用いた最急降下法}
+        \label{fig:optim}
+      \end{center}
+    \end{figure}
+    \section{宿題4}
+    \subsection{A}
+    BFGSアルゴリズムのヘッセ行列の更新式において
+    \begin{align}
+    \bm{H}_{k+1} &= \bm{H}_k + \frac{\bm{t}_k {\bm{t}_k}^T}{{\bm{s}_k}^T \bm{t}_k} - \frac{\bm{H}_k\bm{s}_k {\bm{s}_k}^T\bm{H}_k}{{\bm{s}_k}^T\bm{H}_k\bm{s}_k} \\
+    &= \bm{B} - \frac{\bm{H}_k\bm{s}_k {\bm{s}_k}^T\bm{H}_k}{{\bm{s}_k}^T\bm{H}_k\bm{s}_k}
+    \end{align}
+    のように第1項と第2項をまとめて$\bm{B}$と呼ぶことにする。また、スカラー量${\bm{s}_k}^T \bm{t}_k$を$a$と表記することにする。まず、$\bm{B}$ の逆行列についてシャーマン・モリソン公式を用いると
+    \begin{equation}
+    \bm{B} = \bm{H}_k + \frac{\bm{t}_k {\bm{t}_k}^T} {a}
+    \end{equation}
+    なので
+    \begin{equation}
+    \bm{B}^{-1} = {\bm{H}_k}^{-1} - \frac{
+      {\bm{H}_k}^{-1}\bm{t}_k{\bm{t}_k}^T{\bm{H}_k}^{-1}
+    }{
+      a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k
+    }
+    \end{equation}
+    これを用いて
+    \begin{align}
+    {\bm{H}_{k+1}}^{-1} &= {\bm{B}}^{-1} + \frac{
+      \bm{B}^{-1}\bm{H}_k \bm{s}_k{\bm{s}_k}^T{\bm{H}_k}^T\bm{B}^{-1}
+    }{
+      {\bm{s}_k}^T\bm{H}_k\bm{s}_k - {\bm{s}_k}^T{\bm{H}_k}^T\bm{B}^{-1}\bm{H}_k\bm{s}_k
+    } \\
+    &= \bm{B}^{-1} + \frac{
+      \bm{B}^{-1}\bm{H}_k \bm{s}_k{\bm{s}_k}^T{\bm{H}_k}^T\bm{B}^{-1}
+    }{
+      {\bm{s}_k}^T\bm{H}_k\bm{s}_k - {\bm{s}_k}^T{\bm{H}_k}^T\left(  {\bm{H}_k}^{-1} - \frac{
+      {\bm{H}_k}^{-1}\bm{t}_k{\bm{t}_k}^T{\bm{H}_k}^{-1}
+    }{
+      a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k
+    } \right)\bm{H}_k\bm{s}_k
+    } \\
+    &= \bm{B}^{-1} + \frac{
+      \bm{B}^{-1}\bm{H}_k \bm{s}_k{\bm{s}_k}^T{\bm{H}_k}^T\bm{B}^{-1}
+    }{
+      {\bm{s}_k}^T\bm{H}_k\bm{s}_k - {\bm{s}_k}^T{\bm{H}_k}\bm{s}_k + \frac{
+      a^2
+    }{
+      a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k
+    } 
+    } \\
+    &= \bm{B}^{-1} + \frac{
+      \left( a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k \right) \left( {\bm{H}_k}^{-1} - \frac{
+      {\bm{H}_k}^{-1}\bm{t}_k{\bm{t}_k}^T{\bm{H}_k}^{-1}
+    }{
+      a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k
+    }\right)\bm{H}_k\bm{s}_k{\bm{s}_k}^T{\bm{H}_k}^T \left( {\bm{H}_k}^{-1} - \frac{
+      {\bm{H}_k}^{-1}\bm{t}_k{\bm{t}_k}^T{\bm{H}_k}^{-1}
+    }{
+      a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k
+    } \right)
+    }{
+      a^2
+    } \\
+    &= \bm{B}^{-1} + \frac{
+      \left( a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k \right) \bm{s}_k{\bm{s}_k}^T - \left(  {\bm{H}_k}^{-1}\bm{t}_k{\bm{t}_k}^{T}\bm{s}_k{\bm{s}_k}^{T} + \bm{s}_k{\bm{s}_k}^T\bm{t}_k{\bm{t}_k}^T{\bm{H}_k}^{-1} \right)
+    }{
+      a^2
+    } + \frac{
+      {\bm{H}_k}^{-1}\bm{t}_k{\bm{t}_k}^T \bm{s}_k{\bm{s}_k}^T \bm{t}_k{\bm{t}_k}^T{\bm{H}_k}^{-1}
+    }{
+      a^2\left( a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k \right)
+    }
+    \end{align}
+    ${\bm{t}_k}^T\bm{s}_k = {\bm{s}_k}^T\bm{t}_k = a$なので
+    \begin{align}
+    {\bm{H}_{k+1}}^{-1} &= \bm{B}^{-1} + \frac{
+      \left( a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k \right) \bm{s}_k{\bm{s}_k}^T - a\left(  {\bm{H}_k}^{-1}\bm{t}_k{\bm{s}_k}^{T} + \bm{s}_k{\bm{t}_k}^T{\bm{H}_k}^{-1} \right)
+    }{
+      a^2
+    } + \frac{
+      a^2{\bm{H}_k}^{-1}\bm{t}_k{\bm{t}_k}^T{\bm{H}_k}^{-1}
+    }{
+      a^2\left( a + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k \right)
+    } \\
+    &= {\bm{H}_k}^{-1} + \frac{
+      \left( {\bm{s}_k}^T\bm{t}_k + {\bm{t}_k}^T{\bm{H}_k}^{-1}\bm{t}_k \right)\bm{s}_k{\bm{s}_k}^T
+    }{
+      \left( {\bm{s}_k}^T\bm{t}_k \right)^2
+    } - \frac{
+      {\bm{H}_k}^{-1}\bm{t}_k{\bm{s}_k}^{T} + \bm{s}_k{\bm{t}_k}^T{\bm{H}_k}^{-1}
+    }{
+      {\bm{s}_k}^T\bm{t}_k
+    }
+    \end{align}
+    となる。
+    \subsection{B}
+    $\bm{H}_k$が正定値かつ${\bm{s}_k}^T\bm{t}_k >0$のとき$\bm{H}_{k+1}$が正定値であることを、${\bm{H}_{k+1}}^{-1}$の正定値性から示す。
+    \begin{equation}
+    {\bm{H}_{k+1}}^{-1} = \left( \bm{I} - \frac{\bm{s}_k{\bm{t}_k}^T}{{\bm{s}_k}^T\bm{t}_k} \right) {\bm{H}_k}^{-1} \left( \bm{I} - \frac{\bm{t}_k{\bm{s}_k}^T}{{\bm{s}_k}^T\bm{t}_k} \right) + \frac{\bm{s}_k{\bm{s}_k}^T}{{\bm{s}_k}^T\bm{t}_k}
+    \end{equation}
+    と表現できることを用いると零ベクトル出ない任意のベクトル$\bm{z}$を用いた二次形式
+    \begin{align}
+    \bm{z}^T {\bm{H}_{k+1}}^{-1} \bm{z} &= \bm{z}^T  \left( 
+      \bm{I} - \frac{\bm{s}_k{\bm{t}_k}^T}{{\bm{s}_k}^T\bm{t}_k} 
+    \right) {\bm{H}_k}^{-1} \left( 
+      \bm{I} - \frac{\bm{t}_k{\bm{s}_k}^T}{{\bm{s}_k}^T\bm{t}_k} 
+    \right)\bm{z} + \bm{z}^T \frac{\bm{s}_k{\bm{s}_k}^T}{{\bm{s}_k}^T\bm{t}_k} \bm{z}
+    \end{align}
+    ここで
+    \begin{align}
+    \bm{z}^T \left( \bm{I} - \frac{\bm[s]_k{\bm{t}_k}^T}{{\bm{s}_k}^T\bm{t}_k} \right) &= \bm{z}^T - \frac{{\bm{z}}^T\bm{s}_k}{{\bm{s}_k}^T\bm{t}_k} {\bm{t}_k}^T \\
+    &= \left( \bm{z} - \frac{{\bm{s}_k}^T\bm{z}}{{\bm{s}_k}^T\bm{t}_k} \bm{t}_k \right)^T \\
+    &= \left(  \left( \bm{I} - \frac{\bm{t}_k{\bm{s}_k}^T}{{\bm{s}_k}^T\bm{t}_k} \right) \bm{z} \right)^T
+    \end{align}
+    よって$\left( \bm{I} - \frac{\bm{t}_k{\bm{s}_k}^T}{{\bm{s}_k}^T\bm{t}_k} \right) \bm{z}$を$\bm{z}^{\prime}$と表記することにすると、
+    \begin{align}
+    \bm{z}^T {\bm{H}_{k+1}}^{-1} \bm{z} &= {\bm{z}^{\prime}}^T {\bm{H}_{k}}^{-1} \bm{z}^{\prime} + \frac{\left( {\bm{z}}^T\bm{s}_k \right)^2}{ {\bm{s}_k}^T\bm{t}_k }
+    \end{align}
+    $\bm{H}_k$が正定値かつ${\bm{s}_k}^T\bm{t}_k >0$のときこの値は正であることがわかり、${\bm{H}_{k+1}}^{-1}$は正定値、よって$\bm{H}_{k+1}$も正定値である。
     \end{document}
