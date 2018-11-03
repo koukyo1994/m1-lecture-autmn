@@ -8,6 +8,9 @@ int main(void) {
     pid_t pid = -42;
     int wstatus = -42;
     int ret = -1;
+    int c;
+    FILE *fd;
+    char str[128];
     
     pid = fork();
     switch (pid) {
@@ -20,6 +23,19 @@ int main(void) {
             exit(0);
         default:
             printf("Iamyourfather!\n");
+            sprintf(str, "/proc/%d/maps", pid);
+            fd = fopen(str, "r");
+            if (!fd) {
+                perror("fopen");
+                break;
+            }
+            while ((c = fgetc(fd)) != EOF) {
+                if (putchar(c) < 0) {
+                    fclose(fd);
+                    break;
+                }
+            }
+            fclose(fd);
             break;
     }
     

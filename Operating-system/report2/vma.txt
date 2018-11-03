@@ -1,0 +1,20 @@
+Noooooo!
+Iamyourfather!
+00400000-00401000 r-xp 00000000 08:08 17695897                           /home/hidehisa/master/m1-lecture-autmn/Operating-system/report2/process
+00600000-00601000 r--p 00000000 08:08 17695897                           /home/hidehisa/master/m1-lecture-autmn/Operating-system/report2/process
+00601000-00602000 rw-p 00001000 08:08 17695897                           /home/hidehisa/master/m1-lecture-autmn/Operating-system/report2/process
+7ff65a931000-7ff65aaf1000 r-xp 00000000 08:08 25952340                   /lib/x86_64-linux-gnu/libc-2.23.so
+7ff65aaf1000-7ff65acf1000 ---p 001c0000 08:08 25952340                   /lib/x86_64-linux-gnu/libc-2.23.so
+7ff65acf1000-7ff65acf5000 r--p 001c0000 08:08 25952340                   /lib/x86_64-linux-gnu/libc-2.23.so
+7ff65acf5000-7ff65acf7000 rw-p 001c4000 08:08 25952340                   /lib/x86_64-linux-gnu/libc-2.23.so
+7ff65acf7000-7ff65acfb000 rw-p 00000000 00:00 0 
+7ff65acfb000-7ff65ad21000 r-xp 00000000 08:08 25952281                   /lib/x86_64-linux-gnu/ld-2.23.so
+7ff65aeef000-7ff65aef2000 rw-p 00000000 00:00 0 
+7ff65af20000-7ff65af21000 r--p 00025000 08:08 25952281                   /lib/x86_64-linux-gnu/ld-2.23.so
+7ff65af21000-7ff65af22000 rw-p 00026000 08:08 25952281                   /lib/x86_64-linux-gnu/ld-2.23.so
+7ff65af22000-7ff65af23000 rw-p 00000000 00:00 0 
+7ffc11340000-7ffc11362000 rw-p 00000000 00:00 0                          [stack]
+7ffc11384000-7ffc11387000 r--p 00000000 00:00 0                          [vvar]
+7ffc11387000-7ffc11389000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+Childexitstatus: 0
