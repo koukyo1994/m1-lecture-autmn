@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.07.0 (TeX Live 2018)  (format=lualatex 2018.10.4)  8 NOV 2018 16:04
+This is LuaTeX, Version 1.07.0 (TeX Live 2018)  (format=lualatex 2018.10.4)  11 NOV 2018 16:01
  restricted system commands enabled.
  file:line:error style messages enabled.
 **report6.tex
@@ -35,7 +35,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.113 seconds
+luaotfload | main : initialization completed in 0.116 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/luatex/luatexja/ltjsarticle.cls
 Document Class: ltjsarticle 2018/03/22 ltjsclasses 
@@ -2425,35 +2425,52 @@ i with language dflt
 luaotfload | aux : no font with id 234
 LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
 (Font)              scaled to size 13.31586pt on input line 140.
+LaTeX Font Info:    Font shape `JT3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 11.09656pt on input line 155.
+luaotfload | aux : font no 237 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 237
+LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 11.09656pt on input line 155.
+<barrier.png, id=4, 602.25pt x 401.5pt>
+File: barrier.png Graphic file (type png)
+<use barrier.png>
+Package luatex.def Info: barrier.png  used on input line 160.
+(luatex.def)             Requested size: 361.35278pt x 240.90184pt.
+<penalty.png, id=6, 602.25pt x 401.5pt>
+File: penalty.png Graphic file (type png)
+<use penalty.png>
+Package luatex.def Info: penalty.png  used on input line 170.
+(luatex.def)             Requested size: 361.35278pt x 240.90184pt.
 
 
 AED: lastpage setting LastPage
 LaTeX Font Info:    Font shape `JT3/IPAexMincho(0)/bx/n' will be
-(Font)              scaled to size 9.24713pt on input line 153.
-luaotfload | aux : font no 238 (nil) does not define feature vrt2 for script han
+(Font)              scaled to size 9.24713pt on input line 175.
+luaotfload | aux : font no 241 (nil) does not define feature vrt2 for script han
 i with language dflt
-luaotfload | aux : no font with id 238
+luaotfload | aux : no font with id 241
 LaTeX Font Info:    Font shape `JY3/IPAexMincho(0)/bx/n' will be
-(Font)              scaled to size 9.24713pt on input line 153.
+(Font)              scaled to size 9.24713pt on input line 175.
 [1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-(./report6.aux)
+[2<./barrier.png><./penalty.png>] (./report6.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 )
 
 Here is how much of LuaTeX's memory you used:
- 34394 strings out of 494413
+ 34423 strings out of 494413
  100000,953878 words of node,token memory allocated
- 7867 words of node memory still in use:
-   11 hlist, 2 vlist, 5 rule, 2 glue, 106 kern, 2974 attribute, 154 glue_spec, 1
-58 attribute_list, 2 write, 15 user_defined nodes
-   avail lists: 1:8,2:10339,3:63,4:211,5:76,6:12,7:900,8:124,9:340,10:12
- 36962 multiletter control sequences out of 65536+600000
- 239 fonts using 69565207 bytes
- 66i,9n,117p,993b,994s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 8066 words of node memory still in use:
+   11 hlist, 2 vlist, 5 rule, 2 glue, 106 kern, 3014 attribute, 177 glue_spec, 1
+60 attribute_list, 2 write, 15 user_defined nodes
+   avail lists: 1:8,2:20323,3:174,4:279,5:84,6:30,7:1464,8:284,9:416,10:12,11:4
+ 36980 multiletter control sequences out of 65536+600000
+ 242 fonts using 73752151 bytes
+ 66i,11n,117p,989b,994s stack positions out of 5000i,500n,10000p,200000b,100000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texl
 ive/2018/texmf-dist/fonts/truetype/public/ipaex/ipaexg.ttf></usr/local/texlive/2
 018/texmf-dist/fonts/opentype/public/tex-gyre/texgyreheros-regular.otf></usr/loc
@@ -2468,10 +2485,10 @@ texlive/2018/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/
 mf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2018/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/u
 rw/times/utmri8a.pfb>
-Output written on report6.pdf (1 page, 252624 bytes).
+Output written on report6.pdf (2 pages, 371926 bytes).
 
-PDF statistics: 79 PDF objects out of 1000 (max. 8388607)
- 52 compressed objects within 1 object stream
+PDF statistics: 88 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
- 16 words of extra memory for PDF output out of 10000 (max. 100000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 100000000)
 

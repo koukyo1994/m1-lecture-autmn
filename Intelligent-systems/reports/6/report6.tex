@@ -1,55 +1,55 @@
 \documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
-    \usepackage[luatex]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
-    \usepackage{here}                               % 図表の位置を強制して出力
-    \usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
-    \usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
-    \usepackage{setspace}                           % 行間制御
-    \usepackage{ulem}                               % 下線や取り消し線など
-    \usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
-    \usepackage{multirow}                           % 表で行結合
-    \usepackage{multicol}                           % 表で列結合
-    \usepackage{hhline}                             % 表で 2 重線
-    \usepackage[table]{xcolor}                      % カラー
-    \usepackage{tikz}                               % 図描画用
-    \usepackage[framemethod=tikz]{mdframed}         % 文章を囲むとき用
-    \usepackage[version=3]{mhchem}                  % 化学式
-    \usepackage{siunitx}                            % 単位
-    \usepackage{comment}                            % コメント
-    \setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
-    \usepackage{listings}
-    \lstset{
-        frame=single,
-        basicstyle=\small\ttfamily,
-        tabsize=4,
-        language=python,
-        keywordstyle=\color{red},
-        stringstyle=\color{blue}
-    }
+\usepackage[luatex]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
+\usepackage{here}                               % 図表の位置を強制して出力
+\usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
+\usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
+\usepackage{setspace}                           % 行間制御
+\usepackage{ulem}                               % 下線や取り消し線など
+\usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
+\usepackage{multirow}                           % 表で行結合
+\usepackage{multicol}                           % 表で列結合
+\usepackage{hhline}                             % 表で 2 重線
+\usepackage[table]{xcolor}                      % カラー
+\usepackage{tikz}                               % 図描画用
+\usepackage[framemethod=tikz]{mdframed}         % 文章を囲むとき用
+\usepackage[version=3]{mhchem}                  % 化学式
+\usepackage{siunitx}                            % 単位
+\usepackage{comment}                            % コメント
+\setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
+\usepackage{listings}
+\lstset{
+    frame=single,
+    basicstyle=\small\ttfamily,
+    tabsize=4,
+    language=python,
+    keywordstyle=\color{red},
+    stringstyle=\color{blue}
+}
 
-    % -----ヘッダ・フッタの設定-----
-    \usepackage{fancyhdr}
-    \usepackage{lastpage}
-    \pagestyle{fancy}
-    \lhead{}                                 % 左ヘッダ
-    \chead{}                                 % 中央ヘッダ
-    \rhead{}                                 % 右ヘッダ
-    \lfoot{}                                 % 左フッタ
-    \cfoot{\thepage~/~\pageref{LastPage}}    % 中央フッタ
-    \rfoot{}                                 % 右フッタ
-    \renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
-    % -----余白の設定-----
-    % これをアンコメントするとページ番号が中央からずれるから今は使わない．
-    % \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}
-    % -----フォントの設定-----
-    % https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
-    % http://myfuturesightforpast.blogspot.jp/2013/12/tex-gyre.html など
-    \usepackage[no-math]{fontspec}
-    \usepackage{amsmath,amssymb}    % 高度な数式用
-    \usepackage{mathrsfs}           % 花文字用
-    % times ベース -> txfonts
-    % palatino ベース -> pxfonts
-    \usepackage{txfonts}
-    \usepackage{bm}                 % 斜体太字ベクトル
+% -----ヘッダ・フッタの設定-----
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{}                                 % 左ヘッダ
+\chead{}                                 % 中央ヘッダ
+\rhead{}                                 % 右ヘッダ
+\lfoot{}                                 % 左フッタ
+\cfoot{\thepage~/~\pageref{LastPage}}    % 中央フッタ
+\rfoot{}                                 % 右フッタ
+\renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
+% -----余白の設定-----
+% これをアンコメントするとページ番号が中央からずれるから今は使わない．
+% \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}
+% -----フォントの設定-----
+% https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+% http://myfuturesightforpast.blogspot.jp/2013/12/tex-gyre.html など
+\usepackage[no-math]{fontspec}
+\usepackage{amsmath,amssymb}    % 高度な数式用
+\usepackage{mathrsfs}           % 花文字用
+% times ベース -> txfonts
+% palatino ベース -> pxfonts
+\usepackage{txfonts}
+\usepackage{bm}                 % 斜体太字ベクトル
     % Avant Garde -> TeX Gyre Adventor
     % Bookman Old Style -> TeX Gyre Bonum
     % Zapf Chancery -> TeX Gyre Chorus
@@ -150,4 +150,26 @@
     \bm{\mu} &\ge 0 \\
     \mu_i \left( \sum_j\bm{E}_{ij} \bm{x}_j - \bm{f}_i \right) &= 0, ~\forall i
     \end{align}
+    \section{宿題2}
+    Julia 1.0.0を用いて実装した。
+    \subsection{障壁法}
+    プログラムは添付のbarrier.jlを参照。
+    結果は図\ref{fig:barrier}のようになった。
+    \begin{figure}[htbp]
+      \begin{center}
+        \includegraphics[clip, scale=0.6]{barrier.png}
+        \caption{障壁法による最適化}
+        \label{fig:barrier}
+      \end{center}
+    \end{figure}
+    \subsection{罰則法}
+    プログラムは添付のpenalty.jlを参照。
+    結果は図\ref{fig:penalty}のようになった。
+    \begin{figure}[htbp]
+      \begin{center}
+        \includegraphics[clip, scale=0.6]{penalty.png}
+        \caption{罰則法による最適化}
+        \label{fig:penalty}
+      \end{center}
+    \end{figure}
     \end{document}
