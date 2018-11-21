@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.07.0 (TeX Live 2018)  (format=lualatex 2018.10.4)  13 NOV 2018 21:50
+This is LuaTeX, Version 1.07.0 (TeX Live 2018)  (format=lualatex 2018.10.4)  21 NOV 2018 12:02
  restricted system commands enabled.
  file:line:error style messages enabled.
 **report3.tex
@@ -35,7 +35,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.113 seconds
+luaotfload | main : initialization completed in 0.110 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/luatex/luatexja/ltjsarticle.cls
 Document Class: ltjsarticle 2018/03/22 ltjsclasses 
@@ -2209,11 +2209,12 @@ Package: luatexja-ajmacros 2017/05/05
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-No file report3.aux.
-
+(./report3.aux)
 \openout1 = report3.aux
+
 LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 138.
 LaTeX Font Info:    Try loading font information for OML+txmi on input line 138.
+
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
@@ -2410,49 +2411,81 @@ LaTeX Font Info:    Font shape `JY3/IPAexMincho(0)/m/n' will be
 (Font)              scaled to size 7.3977pt on input line 139.
 LaTeX Font Info:    Font shape `JY3/IPAexMincho(0)/m/n' will be
 (Font)              scaled to size 5.54828pt on input line 139.
-
-
-Package lastpage Warning: Rerun to get the references right on input line 140.
-
-
-AED: lastpage setting LastPage
-LaTeX Font Info:    Font shape `JT3/IPAexMincho(0)/bx/n' will be
-(Font)              scaled to size 9.24713pt on input line 140.
+LaTeX Font Info:    Font shape `JT3/IPAexMincho(0)/m/n' will be
+(Font)              scaled to size 13.31586pt on input line 140.
 luaotfload | aux : font no 232 (nil) does not define feature vrt2 for script han
 i with language dflt
 luaotfload | aux : no font with id 232
+LaTeX Font Info:    Font shape `JY3/IPAexMincho(0)/m/n' will be
+(Font)              scaled to size 13.31586pt on input line 140.
+LaTeX Font Info:    Font shape `JT3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 13.31586pt on input line 140.
+luaotfload | aux : font no 234 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 234
+LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 13.31586pt on input line 140.
+LaTeX Font Info:    Font shape `JT3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 11.09656pt on input line 141.
+luaotfload | aux : font no 237 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 237
+LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 11.09656pt on input line 141.
+LaTeX Font Info:    Font shape `JT3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 9.24713pt on input line 144.
+luaotfload | aux : font no 240 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 240
+LaTeX Font Info:    Font shape `JY3/IPAexGothic(0)/m/n' will be
+(Font)              scaled to size 9.24713pt on input line 144.
+
+
+Class ltjsarticle Warning: deprecated old font command `\bf' used.
+(ltjsarticle)              You should note, that since 1994 LaTeX2e provides a
+(ltjsarticle)              new font selection scheme called NFSS2 with several
+(ltjsarticle)              new, combinable font commands. This ltjsarticle
+(ltjsarticle)              class has defined the old font commands like
+(ltjsarticle)              `\bf' only for compatibility on input line 144.
+
+LaTeX Font Info:    Font shape `JT3/IPAexMincho(0)/bx/n' will be
+(Font)              scaled to size 9.24713pt on input line 144.
+luaotfload | aux : font no 240 (nil) does not define feature vrt2 for script han
+i with language dflt
+luaotfload | aux : no font with id 240
 LaTeX Font Info:    Font shape `JY3/IPAexMincho(0)/bx/n' will be
-(Font)              scaled to size 9.24713pt on input line 140.
+(Font)              scaled to size 9.24713pt on input line 144.
 [1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-(./report3.aux)
+
+AED: lastpage setting LastPage
+[2] (./report3.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 )
 
 Here is how much of LuaTeX's memory you used:
- 34377 strings out of 494413
- 100000,953878 words of node,token memory allocated
- 6388 words of node memory still in use:
-   10 hlist, 2 vlist, 5 rule, 2 glue, 83 kern, 2400 attribute, 125 glue_spec, 12
-9 attribute_list, 2 write, 14 user_defined nodes
-   avail lists: 1:8,2:4561,3:17,4:61,5:26,6:8,7:320,8:50,9:58,10:5,11:12
- 36956 multiletter control sequences out of 65536+600000
- 233 fonts using 61191447 bytes
- 66i,7n,117p,989b,994s stack positions out of 5000i,500n,10000p,200000b,100000s
-</usr/local/texlive/2018/texmf-dist/fonts/truetype/public/ipaex/ipaexm.ttf></usr
-/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyretermes-regu
-lar.otf></usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgy
-retermes-bold.otf>
-Output written on report3.pdf (1 page, 118298 bytes).
+ 34406 strings out of 494413
+ 195324,953878 words of node,token memory allocated
+ 7556 words of node memory still in use:
+   10 hlist, 2 vlist, 5 rule, 2 glue, 95 kern, 2680 attribute, 229 glue_spec, 14
+3 attribute_list, 2 write, 14 user_defined nodes
+   avail lists: 1:15,2:54120,3:109,4:203,5:368,6:32,7:4586,8:54,9:176,10:7,11:30
+0
+ 36968 multiletter control sequences out of 65536+600000
+ 243 fonts using 73927495 bytes
+ 66i,11n,117p,989b,994s stack positions out of 5000i,500n,10000p,200000b,100000s
+</usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyreheros-
+regular.otf></usr/local/texlive/2018/texmf-dist/fonts/truetype/public/ipaex/ipae
+xm.ttf></usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyr
+etermes-regular.otf></usr/local/texlive/2018/texmf-dist/fonts/opentype/public/te
+x-gyre/texgyretermes-bold.otf>
+Output written on report3.pdf (2 pages, 131799 bytes).
 
-PDF statistics: 32 PDF objects out of 1000 (max. 8388607)
- 19 compressed objects within 1 object stream
+PDF statistics: 42 PDF objects out of 1000 (max. 8388607)
+ 25 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 100000000)
 
