@@ -155,9 +155,10 @@ Each Linux process has its scheduling policy.Real Time processes have three opti
 FIFO is the abbreviation of "First In First Out".When the scheduler allocated CPU to the process which has this policy, the position of process descriptor in the execution queue would not change.If there aren't any process which has higher priority than the current process (with this policy), the current process will not stop using the CPU even if there is a process which has the same priority as the current process.
 \item {\bf SCHED\_RR} \\
 RR is the abbreviation of "Round Robbin".When the scheduler allocated CPU to the process which has this policy, the position of process descriptor will be moved to the end of the execution queue.When the process run out of the allocated quantum, the process stop running and wait until the other processes which have the same priorities as the current one and have the policy SCHED\_RR use one quantum.
-\item {\bf SCHED\_DEADLINE}
+\item {\bf SCHED\_DEADLINE}\\
 Process with this policy has the deadline and the priority value is set to the highest automatically.
 \end{description}
+Interactive processes and batch processes may have three options for their policy, SCHED\_OTHER or SCHED\_NORMAL, SCHED\_BATCH, and SCHED\_IDLE.The user can set a value called "nice value" for the processes with SCHED\_OTHER / SCHED\_NORMAL and SCHED\_BATCH.This nice value is the essence of the "nice priority".
 \subsection{Scheduling for Real Time process}
 Every Real Time process has its own RT priority.This priority is a value between 1 and 99.The higher this value is, the lower its priority.The scheduler always pick the process which has the highest priority, which means that execution of those processes which has lower priority than the RT process are suppressed while RT processes are executed.\\
 RT processes give over the execution right to another process only when the incident below happens.
@@ -168,4 +169,26 @@ RT processes give over the execution right to another process only when the inci
 \item The process called the system call sched\_yield() and spontaneously give over the execution right.
 \item The process has the attribute of SCHED\_RR and run out of the quantum.
 \end{itemize}
+Real Time process are always given higher priority than the normal (nice) priority.
+\subsection{Scheduling for Normal process with nice priority}
+Processes with nice priority use two value to calculate the quantum time.When the process spend all the given time slice, the execution of the process is preempted.The two value is, {\bf static priority} and {\bf bonus} value.With these values, Linux scheduler calculate dynamic priorities.Both static priority and dynamic priority can take a value between 100 and 139.The higher the value is, the lower the priority is.This is the same as the real time priority.Nice value is a value between -20 and 19, which can be calculated with the formula $nice = static - 120$.The bonus value is decided from the past activity of the process.In detail, "past activity" means average sleeping time.If average sleeping time of a process is more than 200 mili seconds, the process is judged to be an interactive process.The higher this bonus is, the high dynamic priority is.
+\subsection{Rescheduling for Real Time processes}
+When the current process is Real Time process with SCHED\_FIFO policy, rescheduling is not needed.FIFO type Real Time processes won't be preempted by processes with lower priority.\\
+If the current process is RR type Real Time process, the scheduler\_tick() function decrease the time slice counter of the process and check whether the process has run out of its quantum.When the scheduler judged that RR type RT process has run out of the quantum, scheduler execute tasks to preempt the execution right from the current process if needed.The first task is to fill the time slice counter with another time slice.The scheduler calculate the quantum time from the process's static priority value.After that the scheduler set the first\_time\_slice flag to zero and set the TIF\_NEED\_RESCHED flag.The last task is to move the current process descriptor to the end of the execution queue of the processes with the same priority as current process's.
+\subsection{Rescheduling for normal processes}
+When a normal process has run out of its quantum, the scheduler\_tick() function will do the tasks below.
+\begin{enumerate}
+\item call dequeue\_task() function to delete the current process from this\_rq -> active set.
+\item set the TIF\_NEED\_RESCHED flag.
+\item change the current process's dynamic priority.
+\item calculate the quantum time and fill the time slice counter with basic quantum time slice.
+\item set the expired\_timestamp member to the current tick if the expired\_timestamp is not set to zero.
+\item insert the current process to the active processes set or expired processes set.
+\item check if the remaining time slice is too long, if the time slice of the current process is remained.
+\end{enumerate}
+\subsection{summary}
+Real Time priority has the value between 0 and 99 and nice priority has the value between -20 and 19.With this value, the scheduler decide which process to run.Real Time processes always have higher priorities than normal processes, and cannot be preempted by those processes except for a few exceptions.\\
+The biggest difference between the RT priority and nice priority is the way to calculate the basic quantum time.RT processes with FIFO policy do not have the idea of quantum time.RT processes with RR policy have quantum time, but that time slices are only calculated with the static priorities.On the other hand, normal processes with nice priority also have the quantum time, but that time slices are decided based on the dynamic priorities.Dynamic priority is calculated from static priority and the average sleeping time of the process.
+\section{reference}
+[1] Daniel P. Bovet, Marco Cesati. (2007). Understanding Linux Kernel, 3rd Edition. O'REILLY.
 \end{document}

@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.07.0 (TeX Live 2018)  (format=lualatex 2018.10.4)  21 NOV 2018 12:02
+This is LuaTeX, Version 1.07.0 (TeX Live 2018)  (format=lualatex 2018.10.4)  22 NOV 2018 00:13
  restricted system commands enabled.
  file:line:error style messages enabled.
 **report3.tex
@@ -35,7 +35,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.110 seconds
+luaotfload | main : initialization completed in 0.125 seconds
 Babel <3.18> and hyphenation patterns for 1 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/luatex/luatexja/ltjsarticle.cls
 Document Class: ltjsarticle 2018/03/22 ltjsclasses 
@@ -2458,34 +2458,41 @@ LaTeX Font Info:    Font shape `JY3/IPAexMincho(0)/bx/n' will be
 [1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-
+[2] 
 AED: lastpage setting LastPage
-[2] (./report3.aux)
+[3] [4] (./report3.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 )
 
 Here is how much of LuaTeX's memory you used:
  34406 strings out of 494413
- 195324,953878 words of node,token memory allocated
- 7556 words of node memory still in use:
-   10 hlist, 2 vlist, 5 rule, 2 glue, 95 kern, 2680 attribute, 229 glue_spec, 14
-3 attribute_list, 2 write, 14 user_defined nodes
-   avail lists: 1:15,2:54120,3:109,4:203,5:368,6:32,7:4586,8:54,9:176,10:7,11:30
-0
+ 244150,953878 words of node,token memory allocated
+ 8014 words of node memory still in use:
+   10 hlist, 2 vlist, 5 rule, 2 glue, 95 kern, 2646 attribute, 335 glue_spec, 14
+1 attribute_list, 2 write, 14 user_defined nodes
+   avail lists: 1:16,2:85390,3:138,4:233,5:495,6:40,7:6961,8:54,9:208,10:7,11:43
+8
  36968 multiletter control sequences out of 65536+600000
  243 fonts using 73927495 bytes
  66i,11n,117p,989b,994s stack positions out of 5000i,500n,10000p,200000b,100000s
-</usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyreheros-
-regular.otf></usr/local/texlive/2018/texmf-dist/fonts/truetype/public/ipaex/ipae
-xm.ttf></usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyr
-etermes-regular.otf></usr/local/texlive/2018/texmf-dist/fonts/opentype/public/te
-x-gyre/texgyretermes-bold.otf>
-Output written on report3.pdf (2 pages, 131799 bytes).
+{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texl
+ive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyreheros-regular.otf></us
+r/local/texlive/2018/texmf-dist/fonts/truetype/public/ipaex/ipaexm.ttf></usr/loc
+al/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyretermes-regular.
+otf></usr/local/texlive/2018/texmf-dist/fonts/opentype/public/tex-gyre/texgyrete
+rmes-bold.otf></usr/local/texlive/2018/texmf-dist/fonts/type1/public/txfonts/rtx
+r.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/t
+exlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on report3.pdf (4 pages, 148927 bytes).
 
-PDF statistics: 42 PDF objects out of 1000 (max. 8388607)
- 25 compressed objects within 1 object stream
+PDF statistics: 65 PDF objects out of 1000 (max. 8388607)
+ 42 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 100000000)
 
