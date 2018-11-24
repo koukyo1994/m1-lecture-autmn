@@ -1,0 +1,468 @@
+\documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
+\usepackage[luatex]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
+\usepackage{here}                               % 図表の位置を強制して出力
+\usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
+\usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
+\usepackage{setspace}                           % 行間制御
+\usepackage{ulem}                               % 下線や取り消し線など
+\usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
+\usepackage{multirow}                           % 表で行結合
+\usepackage{multicol}                           % 表で列結合
+\usepackage{hhline}                             % 表で 2 重線
+\usepackage[table]{xcolor}                      % カラー
+\usepackage{tikz}                               % 図描画用
+\usepackage[framemethod=tikz]{mdframed}         % 文章を囲むとき用
+\usepackage[version=3]{mhchem}                  % 化学式
+\usepackage{siunitx}                            % 単位
+\usepackage{comment}                            % コメント
+\setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
+\usepackage{listings}
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while},%
+   sensitive=true,%
+   alsoother={\$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\lstset{%
+    language         = Julia,
+    basicstyle       = \ttfamily,
+    keywordstyle     = \bfseries\color{blue},
+    stringstyle      = \color{magenta},
+    commentstyle     = \color{ForestGreen},
+    showstringspaces = false,
+}
+%\lstset{
+%    frame=single,
+%    basicstyle=\small\ttfamily,
+%    tabsize=4,
+%    language=python,
+%    keywordstyle=\color{red},
+%    stringstyle=\color{blue}
+%}
+
+% -----ヘッダ・フッタの設定-----
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{}                                 % 左ヘッダ
+\chead{}                                 % 中央ヘッダ
+\rhead{}                                 % 右ヘッダ
+\lfoot{}                                 % 左フッタ
+\cfoot{\thepage~/~\pageref{LastPage}}    % 中央フッタ
+\rfoot{}                                 % 右フッタ
+\renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
+% -----余白の設定-----
+% これをアンコメントするとページ番号が中央からずれるから今は使わない．
+% \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}
+% -----フォントの設定-----
+% https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+% http://myfuturesightforpast.blogspot.jp/2013/12/tex-gyre.html など
+\usepackage[no-math]{fontspec}
+\usepackage{amsmath,amssymb}    % 高度な数式用
+\usepackage{mathrsfs}           % 花文字用
+% times ベース -> txfonts
+% palatino ベース -> pxfonts
+\usepackage{txfonts}
+\usepackage{bm}                 % 斜体太字ベクトル
+% Avant Garde -> TeX Gyre Adventor
+% Bookman Old Style -> TeX Gyre Bonum
+% Zapf Chancery -> TeX Gyre Chorus
+% Courier -> TeX Gyre Cursor
+% Helvetica -> TeX Gyre Heros
+% Helvetica Narrow -> TeX Gyre Heros Cn
+% Palatino -> TeX Gyre Pagella
+% New Century Schoolbook -> TeX Gyre Schola
+% Times -> TeX Gyre Termes
+\setmainfont[Ligatures=TeX]{TeXGyreTermes}
+\setsansfont[Ligatures=TeX]{TeXGyreHeros}
+\setmonofont[Scale=MatchLowercase]{TeXGyreCursor}
+\usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
+\setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
+\setsansjfont{IPAexGothic}
+\usepackage{luatexja-otf}
+% -----PDF ハイパーリンク，ブックマーク，URL の設定-----
+% オプション（\hypersetup{}）は https://texwiki.texjp.org/?hyperref 参照
+\usepackage{url}
+% -----ソースコードの設定-----
+% オプション（\lstset{}）は http://tug.ctan.org/tex-archive/macros/latex/contrib/listings/listings.pdf 参照
+% 使うときは
+% \begin{lstlisting}[language=aaaa,caption=bbbb,label=List:cccc]
+% hogehoge
+% \end{lstlisting}
+\usepackage{listings}
+\lstset{%
+  basicstyle=\ttfamily\small,%
+  frame=single,%
+  frameround=ffff,%
+  numbers=left,%
+  stepnumber=1,%
+  numbersep=1\zw,%
+  breaklines=true,%
+  tabsize=4,%
+  captionpos=t,%
+  commentstyle=\itshape}
+% -----図表等の reference の設定-----
+% 表示文字列を日本語化
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+\renewcommand{\lstlistingname}{リスト}
+\renewcommand{\abstractname}{概要}
+% 図番号等を"<章番号>.<図番号>"
+% lstlisting に関しては https://tex.stackexchange.com/questions/134418/numbering-of-listings 参照
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\AtBeginDocument{\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+% 節が進むごとに図番号等をリセット
+% http://d.hatena.ne.jp/gp98/20090919/1253367749 参照
+\makeatletter
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\@addtoreset{lstlisting}{section}
+\@addtoreset{equation}{section}
+\makeatother
+% \ref{} の簡単化
+\newcommand*{\refSec}[1]{\ref{#1}~章}
+\newcommand*{\refSsec}[1]{\ref{#1}~節}
+\newcommand*{\refSssec}[1]{\ref{#1}~項}
+\newcommand*{\refFig}[1]{\figurename~\ref{#1}}
+\newcommand*{\refTab}[1]{\tablename~\ref{#1}}
+\newcommand*{\refList}[1]{\lstlistingname~\ref{#1}}
+\newcommand*{\refEq}[1]{式~(\ref{#1})}
+% -----数式中便利な定義-----
+% https://www.library.osaka-u.ac.jp/doc/TA_LaTeX2.pdf
+% https://en.wikibooks.org/wiki/LaTeX/Mathematics など
+\newcommand{\e}{\mathrm{e}}                     % ネイピア数
+\newcommand{\imagi}{\mathrm{i}}                 % 虚数単位（i）
+\newcommand{\imagj}{\mathrm{j}}                 % 虚数単位（j）
+\newcommand{\vDel}{\varDelta}                   % デルタ大文字
+\newcommand{\veps}{\varepsilon}                 % イプシロン小文字
+\newcommand*{\paren}[1]{\left( #1 \right)}      % () を中身の大きさに合わせる
+\newcommand*{\curly}[1]{\left\{ #1 \right\}}    % {} を中身の大きさに合わせる
+\newcommand*{\bracket}[1]{\left[ #1 \right]}    % [] を中身の大きさに合わせる
+\renewcommand{\Re}{\operatorname{Re}}           % 実部
+\renewcommand{\Im}{\operatorname{Im}}           % 虚部
+\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}          % xfrac パッケージの \sfrac{}{} の代わり
+\renewcommand*\vec[1]{\mathbf{#1}}              % 矢印ベクトルは使わないので上書き．太字立体．
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\title{知的システム論第8回レポート}
+\author{37186305\\航空宇宙工学専攻修士一年\\荒居秀尚}
+
+\begin{document}
+\maketitle
+\section{宿題1}
+Julia 1.0.0で貪欲探索と最適探索を実装した。\\
+実装にあたって、迷路はノード間の長さを重みとして与えた隣接行列の形で表現した。
+\subsection{貪欲探索}
+\begin{lstlisting}
+mutable struct edge
+    from::Int64
+    to::Int64
+    cost::Int64
+end
+
+function greedy(m)
+    openlist = [edge(1, 1, 0)]
+    closedlist = []
+    totalcost = 0
+    while length(openlist) > 0
+        s = pop!(openlist)
+        push!(closedlist, s)
+        totalcost += s.cost
+        if size(m)[1] == s.to
+            break
+        end
+        candidate = [i for i in 1:length(m[s.to, :]) if m[s.to, i] != 0]
+        next = reverse(sort(candidate, by=x -> m[s.to, x]))
+        closed_from = [n.from for n in closedlist]
+        for n in next
+            if n in closed_from
+                continue
+            end
+            push!(openlist, edge(s.to, n, m[s.to, n]))
+        end
+    end
+    closedlist, totalcost
+end
+
+m = [0 1 0 2 0 0 0 0 0 0;
+     1 0 2 0 0 0 0 0 0 0;
+     0 2 0 0 0 0 1 0 0 0;
+     2 0 0 0 1 0 0 0 0 0;
+     0 0 0 1 0 2 0 0 0 0;
+     0 0 0 0 2 0 1 0 0 0;
+     0 0 1 0 0 1 0 1 0 0;
+     0 0 0 0 0 0 1 0 1 2;
+     0 0 0 0 0 0 0 1 0 0;
+     0 0 0 0 0 0 0 2 0 0]
+
+greedy(m)
+\end{lstlisting}
+ これを実行すると、通る経路としては
+\begin{equation*}
+A \rightarrow B \rightarrow C \rightarrow G \rightarrow F \rightarrow E \rightarrow D \rightarrow H \rightarrow I \rightarrow J
+\end{equation*}
+となる。ただし分岐に関しては、遡りは行わないこととした。この時ゴールまでのコストは12であった。
+\subsection{最適探索}
+\begin{lstlisting}
+import Base: sort
+
+
+mutable struct node
+    id::Int64
+    min_cost::Int64
+    from::Int64
+end
+
+function sort(a::Array{node, 1})
+    costs = [n.min_cost for n in a]
+    idx = sortperm(costs)
+    a = a[idx]
+end
+
+function dijkstra(m)
+    initnode = node(1, 0, 1)
+    pendinglist = [initnode]
+    allnodes = []
+    closedlist = []
+    while true
+        pending_id = [n.id for n in pendinglist]
+        if size(m)[1] in pending_id
+            break
+        end
+
+        pendinglist = sort(pendinglist)
+        s = popfirst!(pendinglist)
+        all_id = [n.id for n in allnodes]
+        if !(s.id in all_id)
+            push!(allnodes, s)
+        end
+        idx = s.id
+        root = m[idx, :]
+        candidate_idx = [i for i in 1:length(root) if root[i] != 0]
+        pending_id = [n.id for n in pendinglist]
+        for i in candidate_idx
+            cost = s.min_cost + root[i]
+            if i in pending_id
+                pending_idx = indexin(i, pending_id)[1]
+                if cost < (pendinglist[pending_idx].min_cost)
+                    pendinglist[pending_idx].min_cost = cost
+                    pendinglist[pending_idx].from = idx
+                end
+                continue
+            end
+            push!(pendinglist, node(i, cost, idx))
+        end
+    end
+    
+    pending_id = [n.id for n in pendinglist]
+    all_id = [n.id for n in allnodes]
+    poslast = indexin(size(m)[1], pending_id)[1]
+    current = pendinglist[poslast]
+    push!(closedlist, current)
+    while true
+        if current.from == 1
+            push!(closedlist, initnode)
+            break
+        end
+        
+        pos = indexin(current.from, all_id)[1]
+        push!(closedlist, allnodes[pos])
+        current = allnodes[pos]
+    end
+    sort(closedlist)
+end
+
+m = [0 1 0 2 0 0 0 0 0 0;
+     1 0 2 0 0 0 0 0 0 0;
+     0 2 0 0 0 0 1 0 0 0;
+     2 0 0 0 1 0 0 0 0 0;
+     0 0 0 1 0 2 0 0 0 0;
+     0 0 0 0 2 0 1 0 0 0;
+     0 0 1 0 0 1 0 1 0 0;
+     0 0 0 0 0 0 1 0 1 2;
+     0 0 0 0 0 0 0 1 0 0;
+     0 0 0 0 0 0 0 2 0 0]
+
+dijkstra(m)
+\end{lstlisting}
+これを実行すると、最終的な経路としては
+\begin{equation*}
+A \rightarrow B \rightarrow C \rightarrow G \rightarrow H \rightarrow J
+\end{equation*}
+のコスト7の経路を発見することができることが確かめられた。また、このdijkstra(m)内部で最終的なallnodes配列を出力してみると、
+\begin{equation*}
+A \rightarrow D \rightarrow E \rightarrow F
+\end{equation*}
+の経路も$G \rightarrow H$を計算する前に検証していることがわかる。
+\section{宿題2}
+Julia 1.0.0で実装した。
+\begin{lstlisting}
+import Base: sort, indexin
+
+
+function options(p)
+    idx = indexin(0, p)[1]
+    indices = [CartesianIndex(i, j) for (i, j) in [
+                (idx[1]-1, idx[2]), (idx[1]+1, idx[2]),
+                (idx[1], idx[2]-1), (idx[1], idx[2]+1)
+                ]]
+    indices = [i for i in indices if 0 < i[1] <= size(p)[1] && 0 < i[2] <= size(p)[2]]
+end
+
+
+function flip(p, idx)
+    zeropos = indexin(0, p)[1]
+    p[zeropos], p[idx] = p[idx], p[zeropos]
+    p
+end
+
+
+function number_of_misplace(p, o)
+    sum(sign.(abs.(p - o)))
+end
+
+
+function manhattan(p, o)
+    distance = 0
+    for i in 1:maximum(p)
+        idxp = indexin(i, p)[1]
+        idxo = indexin(i, o)[1]
+        cartesian_diff = idxp - idxo
+        distance += abs(cartesian_diff[1]) + abs(cartesian_diff[2])
+    end
+    distance
+end
+
+
+mutable struct State
+    state::Array{Int64, 2}
+    before::Array{Int64, 2}
+    min_cost::Int64
+    heuristic::Int64
+end
+
+
+function sort(a::Array{State, 1})
+    costs = [s.min_cost + s.heuristic for s in a]
+    a[sortperm(costs)]
+end
+
+
+function indexin(elem::Array{Int64, 2}, arr::Array{Array{Int64, 2}, 1})
+    [i for i in 1:length(arr) if arr[i] == elem][1]
+end
+
+
+function astar(p, o, f)
+    pendinglist = [State(copy(p), copy(p), 0, f(p, o))]
+    visitedlist = []
+    closedlist = []
+    while true
+        pendinglist = sort(pendinglist)
+        next = popfirst!(pendinglist)
+        visited_state = [s.state for s in visitedlist]
+        if !(next.state in visited_state)
+            push!(visitedlist, next)
+        end
+        next_option = options(next.state)
+        next_p = [flip(copy(next.state), i) for i in next_option]
+        next_state = [State(np, copy(next.state), next.min_cost+1, f(np, o)) for np in next_p]
+        if o in next_p
+            push!(visitedlist, State(o, copy(next.state), next.min_cost+1, f(o, o)))
+            break
+        end
+        
+        pending_state = [s.state for s in pendinglist]
+        for ns in next_state
+            if !(ns.state in pending_state)
+                push!(pendinglist, ns) 
+            end
+        end
+    end
+    visited_state = [s.state for s in visitedlist]
+    current = o
+    while true
+        idxcurrent = indexin(current, visited_state)
+        push!(closedlist, visitedlist[idxcurrent])
+        if current == p
+            break
+        end
+        before = visitedlist[idxcurrent].before
+        idxbefore = indexin(before, visited_state)
+        current = visitedlist[idxbefore].state
+    end
+    reverse(closedlist)
+end
+
+
+puzzle = [4 3 5;
+          2 1 0]
+
+optimal = [1 2 3;
+           4 5 0]
+
+astar(puzzle, optimal, number_of_misplace)
+\end{lstlisting}
+これを実行すると、最終的な経路としては、
+\begin{equation*}
+\left[
+\begin{matrix}
+  4 & 3 & 5\\
+  2 & 1 & 0
+\end{matrix}
+\right] \rightarrow \left[
+\begin{matrix}
+  4 & 3 & 0\\
+  2 & 1 & 5
+\end{matrix}
+\right] \rightarrow \left[
+\begin{matrix}
+  4 & 0 & 3\\
+  2 & 1 & 5
+\end{matrix}
+\right] \rightarrow 
+\left[
+\begin{matrix}
+  4 & 1 & 3\\
+  2 & 0 & 5    
+\end{matrix}
+\right] \rightarrow \left[
+\begin{matrix}
+  4 & 1 & 3\\
+  0 & 2 & 5
+\end{matrix}
+\right] \rightarrow \left[
+\begin{matrix}
+  0 & 1 & 3\\
+  4 & 2 & 5
+\end{matrix}
+\right] \rightarrow 
+\left[
+\begin{matrix}
+  1 & 0 & 3\\
+  4 & 2 & 5
+\end{matrix}
+\right] \rightarrow \left[
+\begin{matrix}
+  1 & 2 & 3\\
+  4 & 0 & 5
+\end{matrix}
+\right] \rightarrow \left[
+\begin{matrix}
+  1 & 2 & 3\\
+  4 & 5 & 0
+\end{matrix}
+\right]
+\end{equation*}
+が出力される。なお、上のプログラム例では誤りタイルの数をヒューリスティック評価値としているが、これをマンハッタン距離に変えても全く同じ結果が得られる。
+\end{document}
