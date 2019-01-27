@@ -1,0 +1,188 @@
+\documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
+\usepackage[luatex]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
+\usepackage{here}                               % 図表の位置を強制して出力
+\usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
+\usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
+\usepackage{setspace}                           % 行間制御
+\usepackage{ulem}                               % 下線や取り消し線など
+\usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
+\usepackage{multirow}                           % 表で行結合
+\usepackage{multicol}                           % 表で列結合
+\usepackage{hhline}                             % 表で 2 重線
+\usepackage[table]{xcolor}                      % カラー
+\usepackage{tikz}                               % 図描画用
+\usepackage[framemethod=tikz]{mdframed}         % 文章を囲むとき用
+\usepackage[version=3]{mhchem}                  % 化学式
+\usepackage{siunitx}                            % 単位
+\usepackage{comment}                            % コメント
+\setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
+\usepackage{listings}
+\lstset{
+    frame=single,
+    basicstyle=\small\ttfamily,
+    tabsize=4,
+    language=python,
+    keywordstyle=\color{red},
+    stringstyle=\color{blue}
+}
+
+% -----ヘッダ・フッタの設定-----
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{}                                 % 左ヘッダ
+\chead{}                                 % 中央ヘッダ
+\rhead{}                                 % 右ヘッダ
+\lfoot{}                                 % 左フッタ
+\cfoot{\thepage~/~\pageref{LastPage}}    % 中央フッタ
+\rfoot{}                                 % 右フッタ
+\renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
+% -----余白の設定-----
+% これをアンコメントするとページ番号が中央からずれるから今は使わない．
+% \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}
+% -----フォントの設定-----
+% https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+% http://myfuturesightforpast.blogspot.jp/2013/12/tex-gyre.html など
+\usepackage[no-math]{fontspec}
+\usepackage{amsmath,amssymb}    % 高度な数式用
+\usepackage{mathrsfs}           % 花文字用
+% times ベース -> txfonts
+% palatino ベース -> pxfonts
+\usepackage{txfonts}
+\usepackage{bm}                 % 斜体太字ベクトル
+% Avant Garde -> TeX Gyre Adventor
+% Bookman Old Style -> TeX Gyre Bonum
+% Zapf Chancery -> TeX Gyre Chorus
+% Courier -> TeX Gyre Cursor
+% Helvetica -> TeX Gyre Heros
+% Helvetica Narrow -> TeX Gyre Heros Cn
+% Palatino -> TeX Gyre Pagella
+% New Century Schoolbook -> TeX Gyre Schola
+% Times -> TeX Gyre Termes
+\setmainfont[Ligatures=TeX]{TeXGyreTermes}
+\setsansfont[Ligatures=TeX]{TeXGyreHeros}
+\setmonofont[Scale=MatchLowercase]{TeXGyreCursor}
+\usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
+\setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
+\setsansjfont{IPAexGothic}
+\usepackage{luatexja-otf}
+% -----PDF ハイパーリンク，ブックマーク，URL の設定-----
+% オプション（\hypersetup{}）は https://texwiki.texjp.org/?hyperref 参照
+\usepackage{url}
+% -----ソースコードの設定-----
+% オプション（\lstset{}）は http://tug.ctan.org/tex-archive/macros/latex/contrib/listings/listings.pdf 参照
+% 使うときは
+% \begin{lstlisting}[language=aaaa,caption=bbbb,label=List:cccc]
+% hogehoge
+% \end{lstlisting}
+\usepackage{listings}
+\lstset{%
+  basicstyle=\ttfamily\small,%
+  frame=single,%
+  frameround=ffff,%
+  numbers=left,%
+  stepnumber=1,%
+  numbersep=1\zw,%
+  breaklines=true,%
+  tabsize=4,%
+  captionpos=t,%
+  commentstyle=\itshape}
+% -----図表等の reference の設定-----
+% 表示文字列を日本語化
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+\renewcommand{\lstlistingname}{リスト}
+\renewcommand{\abstractname}{概要}
+% 図番号等を"<章番号>.<図番号>"
+% lstlisting に関しては https://tex.stackexchange.com/questions/134418/numbering-of-listings 参照
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\AtBeginDocument{\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+% 節が進むごとに図番号等をリセット
+% http://d.hatena.ne.jp/gp98/20090919/1253367749 参照
+\makeatletter
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\@addtoreset{lstlisting}{section}
+\@addtoreset{equation}{section}
+\makeatother
+% \ref{} の簡単化
+\newcommand*{\refSec}[1]{\ref{#1}~章}
+\newcommand*{\refSsec}[1]{\ref{#1}~節}
+\newcommand*{\refSssec}[1]{\ref{#1}~項}
+\newcommand*{\refFig}[1]{\figurename~\ref{#1}}
+\newcommand*{\refTab}[1]{\tablename~\ref{#1}}
+\newcommand*{\refList}[1]{\lstlistingname~\ref{#1}}
+\newcommand*{\refEq}[1]{式~(\ref{#1})}
+% -----数式中便利な定義-----
+% https://www.library.osaka-u.ac.jp/doc/TA_LaTeX2.pdf
+% https://en.wikibooks.org/wiki/LaTeX/Mathematics など
+\newcommand{\e}{\mathrm{e}}                     % ネイピア数
+\newcommand{\imagi}{\mathrm{i}}                 % 虚数単位（i）
+\newcommand{\imagj}{\mathrm{j}}                 % 虚数単位（j）
+\newcommand{\vDel}{\varDelta}                   % デルタ大文字
+\newcommand{\veps}{\varepsilon}                 % イプシロン小文字
+\newcommand*{\paren}[1]{\left( #1 \right)}      % () を中身の大きさに合わせる
+\newcommand*{\curly}[1]{\left\{ #1 \right\}}    % {} を中身の大きさに合わせる
+\newcommand*{\bracket}[1]{\left[ #1 \right]}    % [] を中身の大きさに合わせる
+\renewcommand{\Re}{\operatorname{Re}}           % 実部
+\renewcommand{\Im}{\operatorname{Im}}           % 虚部
+\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}          % xfrac パッケージの \sfrac{}{} の代わり
+\renewcommand*\vec[1]{\mathbf{#1}}              % 矢印ベクトルは使わないので上書き．太字立体．
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\title{Advanced OS Report\#12}
+\author{37186305\\1st year in Master Course, Dep. Aeronautics \& Astronautics, School of Engineering\\Hidehisa Arai}
+\begin{document}
+\maketitle
+\section{Difference between PTask and TimeGraph, Gdev}
+\subsection{Difference according to the problem consciousness}
+In this subsection, difference according to underlying problem consciousness between these researches will be explained.\\
+First, there are three components in the problem consciousness behind the PTask.
+\begin{itemize}
+\item OS abstraction related to GPU usage is not sufficient enough to conduct interactive processes using GPU.\\
+To use GPU for interactive usage, high response frequency and low latency is required, but processes using GPU sometimes suffer from the double buffering problem which leads to high latency.
+\item GPU systems are lack of fairness and isolation, which means that, GPU bound tasks and CPU bound tasks are mutually influenced by each other.This means that when using GPU, the activity of CPU bound tasks will be suffered from the GPU activity while memory and CPU usage of host is not so active. CPU activities will also interfere GPU throughput vice versa. This happens because the scheduling policy is hidden by the device driver and the policy is sometimes so primitive that it can cause a performance problem.
+\item Current ioctl based API is not sophisticated enough, and being a burden for the programmers to handle it. To handle GPU effectively, static knowledge about OS level issues are required, and this can be a hurdle for the programmers.
+\end{itemize}
+To summarize, current API for GPU usage is not sophisticated enough and new API to treat GPU as a first class computing resource is required. \\
+The problem consciousness behind the Gdev and TimeGraph are as follows,
+\begin{itemize}
+\item The system software support for GPU usage is not well-designed to integrate GPU to general purpose multi tasking processes which requires the GPU support for parallel computing.
+\item In the current system, GPU usage are limited to the user space, and OS cannot use the API for GPU.
+\item Memory usage of GPU cannot exceed the physical memory capacity of the GPU. 
+\item Scheduling for GPU is not sophisticated enough, partially because GPU is command driven and cannot be stopped while it's working, but this problem prevent GPU from being used for real time usage.
+\end{itemize}
+These problem consciousness will also be summarized as follows, that new API sets to treat GPU as a first class computing resource is required. So the basic problem consciousness are similar, but in detail there are some differences.\\
+First, the authors of PTask concerned about the double buffering problem as serious bottleneck while the authors of Gdev did not mentioned about that problem.\\
+Second, the authors of Gdev mentioned about the capacity of GPU memory while the authors of PTask didn't.\\ 
+\subsection{Difference according to the solution}
+In this subsection, difference according to the suggested solution between these researches will be explained.\\
+PTask suggested graph based API sets. In detail, PTask supports a data flow programming model in which individual tasks are assembled into a acyclic computational graph. The programmers need to define the ptask which corresponds to the node(vertices) of the graph and the channel which corresponds to the edge of the graph. Each ptasks is a step in the calculation flow, and each channels is a data flow in the calculation. Programmers need to connect the channel to the ports which are the gates attached to the ptasks. Finally programmers need to define the data entities called data blocks and meta data for the calculation called templates.\\
+The characteristics of this API sets are as follows,
+\begin{itemize}
+\item Bring GPUs under the purview of a single resource manager, allowing the entity to provide meaningful guarantees for fairness and isolation.
+\item Provide a programming model that simplifies the code development for the accelerators by abstracting away codes that manages devices, performs I/O, and deals with disjoint memory spaces and freeing the programmers to focus on the algorithm or data flows.
+\item Provide a programming environment that allow both modular and fast.
+\end{itemize}
+TimeGraph and Gdev provide a scheduler and API sets to treat GPUs as first class computational resources. In detail, they implemented a wrapper API and enabled the OS itself to use GPUs. They also provided shared memory functionality for GPU to enable GPU contexts to allocate memory exceeding the physical size of device memory. They also introduced the inter-process communication for memory management and scheduling for GPU virtualization.\\
+The largest difference between PTask and (Gdev, TimeGraph) is the data flow programming model of the PTask to create a static computational graph to optimize the calculation. Both of the researches introduce the scheduling mechanism and sort of shared memory inside the GPU.
+\section{Main solution of PTask for data-flow programming models}
+The basics of the PTask's graph oriented data-flow programming models are stated above, so in this section, more detailed things will be explained.\\
+\begin{itemize}
+\item ptask is an analogous to the traditional OS abstraction, but a ptask runs on a GPU or other accelerators, so it is different from processes.A ptask has a list of input and output resources, which is an analogous to the POSIX stdin, stdout, stderr, that can be bound to the ports.
+\item A port is an object in the kernel namespace that can be bound to ptask input and output resources.Ports has three subtypes, InputPort, OutputPort, and StickyPort. The former two correspond to stdin and stdout of POSIX, and the latter represents an input which retain its value across multiple invocations of ptasks.
+\item A channel is an analogous to the POSIX pipe, it connects a port to another port, or to other data sources and sinks in the system such as I/O buses, files, and so on.
+\item A graph is collection of ptasks whose ports are connected by channels. Multiple graph may be created and executed independently, with the PTask runtime being responsible for scheduling them fairly.
+\item A datablock represents a unit of data flow along an edge in a graph. A template provides meta-data describing datablocks. 
+\end{itemize} 
+\section{What is improved by PTask and how much?}
+They evaluated their API sets with some benchmarks.First, they evaluated with gestural inference, compared with other three methods.\\
+The configuration of other three methods are, hand-coded, which directly manipulate the user mode camera component of the camera driver to offload work to GPU, in order to eliminate unnecessary copy of the data.\\
+The configuration for the second method is to connect four processes with pipe. This method is modular, but with this method unnecessary movement at the boundary of kernel space and GPU incurs, and also inter-process communication is needed which leads to extra overhead.
+The configuration for the third one is almost the same as the second one, but all the procedures are conducted in a single process, which means that unnecessary IPC is eliminated.\\
+Among these three configurations, the first one, hand-code scores the best performance while the second one, pipe is the easiest to implement. Compared with these configurations, PTask scores the best. It got 11.6\% higher throughput compared with the hand-code and 7\% low latency, and 22.5\% low CPU utility. This happens because PTask eliminate unnecessary data movement at the boundary of the kernel and GPU.\\
+Second, they checked that their GPU scheduling method to allow scheduler to change the priority of the GPU eliminated the problem stated above.
+\end{document}

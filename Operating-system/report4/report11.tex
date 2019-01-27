@@ -1,0 +1,188 @@
+\documentclass[10pt,a4paper]{ltjsarticle}       % LuaTeX を使う
+\usepackage[luatex]{graphicx}             % LuaTeX 用, draft がついているときは図の代わりに同じ大きさの枠ができる
+\usepackage{here}                               % 図表の位置を強制して出力
+\usepackage{afterpage}                          % 残っている図を貼り付ける（\afterpage{\clearpage}）
+\usepackage[subrefformat=parens]{subcaption}    % サブキャプション（図1(a) とか）
+\usepackage{setspace}                           % 行間制御
+\usepackage{ulem}                               % 下線や取り消し線など
+\usepackage{booktabs}                           % きれいな表（\toprule \midrule \bottomrule）
+\usepackage{multirow}                           % 表で行結合
+\usepackage{multicol}                           % 表で列結合
+\usepackage{hhline}                             % 表で 2 重線
+\usepackage[table]{xcolor}                      % カラー
+\usepackage{tikz}                               % 図描画用
+\usepackage[framemethod=tikz]{mdframed}         % 文章を囲むとき用
+\usepackage[version=3]{mhchem}                  % 化学式
+\usepackage{siunitx}                            % 単位
+\usepackage{comment}                            % コメント
+\setcounter{tocdepth}{3}                        % 目次に subsubsection まで表示
+\usepackage{listings}
+\lstset{
+    frame=single,
+    basicstyle=\small\ttfamily,
+    tabsize=4,
+    language=python,
+    keywordstyle=\color{red},
+    stringstyle=\color{blue}
+}
+
+% -----ヘッダ・フッタの設定-----
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{}                                 % 左ヘッダ
+\chead{}                                 % 中央ヘッダ
+\rhead{}                                 % 右ヘッダ
+\lfoot{}                                 % 左フッタ
+\cfoot{\thepage~/~\pageref{LastPage}}    % 中央フッタ
+\rfoot{}                                 % 右フッタ
+\renewcommand{\headrulewidth}{0pt}       % ヘッダの罫線を消す
+% -----余白の設定-----
+% これをアンコメントするとページ番号が中央からずれるから今は使わない．
+% \usepackage[left=19.05mm,right=19.05mm,top=25.40mm,bottom=25.40mm]{geometry}
+% -----フォントの設定-----
+% https://ja.osdn.net/projects/luatex-ja/wiki/LuaTeX-ja%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+% http://myfuturesightforpast.blogspot.jp/2013/12/tex-gyre.html など
+\usepackage[no-math]{fontspec}
+\usepackage{amsmath,amssymb}    % 高度な数式用
+\usepackage{mathrsfs}           % 花文字用
+% times ベース -> txfonts
+% palatino ベース -> pxfonts
+\usepackage{txfonts}
+\usepackage{bm}                 % 斜体太字ベクトル
+% Avant Garde -> TeX Gyre Adventor
+% Bookman Old Style -> TeX Gyre Bonum
+% Zapf Chancery -> TeX Gyre Chorus
+% Courier -> TeX Gyre Cursor
+% Helvetica -> TeX Gyre Heros
+% Helvetica Narrow -> TeX Gyre Heros Cn
+% Palatino -> TeX Gyre Pagella
+% New Century Schoolbook -> TeX Gyre Schola
+% Times -> TeX Gyre Termes
+\setmainfont[Ligatures=TeX]{TeXGyreTermes}
+\setsansfont[Ligatures=TeX]{TeXGyreHeros}
+\setmonofont[Scale=MatchLowercase]{TeXGyreCursor}
+\usepackage[match,deluxe,expert,bold]{luatexja-fontspec}
+\setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
+\setsansjfont{IPAexGothic}
+\usepackage{luatexja-otf}
+% -----PDF ハイパーリンク，ブックマーク，URL の設定-----
+% オプション（\hypersetup{}）は https://texwiki.texjp.org/?hyperref 参照
+\usepackage{url}
+% -----ソースコードの設定-----
+% オプション（\lstset{}）は http://tug.ctan.org/tex-archive/macros/latex/contrib/listings/listings.pdf 参照
+% 使うときは
+% \begin{lstlisting}[language=aaaa,caption=bbbb,label=List:cccc]
+% hogehoge
+% \end{lstlisting}
+\usepackage{listings}
+\lstset{%
+  basicstyle=\ttfamily\small,%
+  frame=single,%
+  frameround=ffff,%
+  numbers=left,%
+  stepnumber=1,%
+  numbersep=1\zw,%
+  breaklines=true,%
+  tabsize=4,%
+  captionpos=t,%
+  commentstyle=\itshape}
+% -----図表等の reference の設定-----
+% 表示文字列を日本語化
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+\renewcommand{\lstlistingname}{リスト}
+\renewcommand{\abstractname}{概要}
+% 図番号等を"<章番号>.<図番号>"
+% lstlisting に関しては https://tex.stackexchange.com/questions/134418/numbering-of-listings 参照
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\AtBeginDocument{\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+% 節が進むごとに図番号等をリセット
+% http://d.hatena.ne.jp/gp98/20090919/1253367749 参照
+\makeatletter
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\@addtoreset{lstlisting}{section}
+\@addtoreset{equation}{section}
+\makeatother
+% \ref{} の簡単化
+\newcommand*{\refSec}[1]{\ref{#1}~章}
+\newcommand*{\refSsec}[1]{\ref{#1}~節}
+\newcommand*{\refSssec}[1]{\ref{#1}~項}
+\newcommand*{\refFig}[1]{\figurename~\ref{#1}}
+\newcommand*{\refTab}[1]{\tablename~\ref{#1}}
+\newcommand*{\refList}[1]{\lstlistingname~\ref{#1}}
+\newcommand*{\refEq}[1]{式~(\ref{#1})}
+% -----数式中便利な定義-----
+% https://www.library.osaka-u.ac.jp/doc/TA_LaTeX2.pdf
+% https://en.wikibooks.org/wiki/LaTeX/Mathematics など
+\newcommand{\e}{\mathrm{e}}                     % ネイピア数
+\newcommand{\imagi}{\mathrm{i}}                 % 虚数単位（i）
+\newcommand{\imagj}{\mathrm{j}}                 % 虚数単位（j）
+\newcommand{\vDel}{\varDelta}                   % デルタ大文字
+\newcommand{\veps}{\varepsilon}                 % イプシロン小文字
+\newcommand*{\paren}[1]{\left( #1 \right)}      % () を中身の大きさに合わせる
+\newcommand*{\curly}[1]{\left\{ #1 \right\}}    % {} を中身の大きさに合わせる
+\newcommand*{\bracket}[1]{\left[ #1 \right]}    % [] を中身の大きさに合わせる
+\renewcommand{\Re}{\operatorname{Re}}           % 実部
+\renewcommand{\Im}{\operatorname{Im}}           % 虚部
+\newcommand*\sfrac[2]{{}^{#1}\!/_{#2}}          % xfrac パッケージの \sfrac{}{} の代わり
+\renewcommand*\vec[1]{\mathbf{#1}}              % 矢印ベクトルは使わないので上書き．太字立体．
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\title{Advanced OS Report\#11}
+\author{37186305\\1st year of master course, Department of Aeronautics \& Astronautics, School of Engineering\\Hidehisa Arai}
+
+\begin{document}
+\maketitle
+\section{The difference between Corey and Barrelfish}
+\subsection{Problem consciousness}
+First I will explain about the difference between problem consciousness of Barrelfish and those of Corey. The problem consciousness behind Barrelfish consists of following two.
+\begin{itemize}
+  \item Optimization method for high performance computing is not applicable to the optimization for general purpose computing with many cores.
+  \item Optimization for different types of hardwares is very difficult and will be more hard in the future.
+\end{itemize} 
+The first problem is due to the unpredictability and OS-intensiveness of the general purpose computers. On the second issue, the authors of the paper argues that the optimizations depend on hardware parameters and therefore different types of hardwares need different optimizations.\\
+These are different from those of the Corey. Corey's authors concern about the problem that the efficiency of multi-core processing decreases as the number of the cores increase. This problem is caused by the mechanism to share the resources.
+\subsection{Design principles of the two operating system}
+The points of Barrelfish is to stop sharing the memory between the core and use communication via explicit message passing to keep the state correctness. They suggest three design principles.
+\begin{enumerate}
+  \item make all inter-core communication explicit.
+  \item make OS structure hardware-neutral
+  \item view state as replicated instead of shared.
+\end{enumerate}
+These design principles are totally different from those of Corey. Corey's design principles are as follows,
+\begin{enumerate}
+  \item Address ranges:  Allow applications to control which parts of the address space are private per core and which are shared.
+  \item Kernel cores:  Allow applications to dedicate cores to run specific kernel functions to avoid contention over the data those functions use.
+  \item Shares:  Provide a lookup tables for kernel objects that allow applications to control which object identifiers are visible to other cores.
+\end{enumerate}
+The difference between these design principles can be summarized as follows,
+\begin{enumerate}
+  \item While Barrelfish avoid performance degradation due to an increase in the number of cores by using messaging between cores and not using the shared memory, Corey avoid the same problem by allowing the applications to explicitly determine the shared part of the memory to avoid contention between cores over the data.
+  \item While Barrelfish considers about the optimization over the different types of hardwares, Corey don't.
+\end{enumerate}
+There is one point that both OS agree with, that is, both OS entrust applications to explicitly control which information to convey between cores.
+\section{Main solution of Corey for many cores}
+The solutions of Corey are aggregated in the three principles of Corey, so in this section, more detailed things will be explained.The solution provided by Corey are following three,
+\subsection{Address ranges}
+Parallel applications typically use memory in two patterns, one is that the address space is private per process, and one is that one address space is shared by multiple cores. Both of these memory usage is only best fit for limited cases and often suffer from the ill performance caused by contention between cores over the shared resources.
+The solution proposed by the paper's authors is to let the application to define which part of the memory to be shared, and which part to be kept private.
+\subsection{Kernel cores}
+In most operating system, when application code calls a system call, that system call will be executed on the same core which the application code is running, and if the system call uses the shared kernel data structures, it locks the resource and fetch relevant cache line. When many cores use the same kernel data, this process will be costly and the contention happens. The solution provided by the authors for this problem is to dedicate some cores for calling the system calls. This means that the system call execution will be done by the different cores from the caller of that system call. This may cause a potential efficiency decrease during the application execution, because the number of cores which the application can use will decrease, so Corey provides the kernel core abstraction as an option, and let the application owner to choose whether to use the abstraction or not.
+\subsection{Shares}
+Many kernel operations involve looking up identifiers in tables. For example, file descriptors and process IDs are the pointers which are consistent in the same thread or in the global state. This looking up sometimes causes the contention and Corey provides a solution for this: shares. Corey allows applications to create lookup tables, and allow them to share that tables between processes if needed. If the tables are not shared, it is placed in the private root address, and  if shared, processes create a share and add the share's ID to their private root address.
+\section{Improvements}
+\subsection{Improvements made by Address ranges}
+For the following the two patterns of memory usage cost, Corey benefited from the address ranges abstraction. First is the contention cost of manipulating mappings for private memory, and second is the soft page-fault costs for memory that is used on multiple cores. They compared Corey with two different types of memory sharing on Linux. One is sharing one address space by multiple cores and the other is private address space per cores.\\
+For the first situation of memory usage cost, Linux with separated address space worked well in terms of its performance but the Linux with single address space suffered from performance decrease as the number of the cores increased. Corey showed almost the same performance as Linux with separated address space showed.
+For the second situation of memory usage cost, Linux with single address space worked well but Linux with separated address space did not and the time spent for the task increased linearly as the number of the cores increased.Corey showed almost the same performance as Linux with single address space did.
+\subsection{Improvements made by kernel cores}
+Throughput of TCP service improves by accepting the kernel core abstraction.They experimented with a simple TCP service benchmark, which accepts incoming connections, writing 128 bytes to each connection before closing it. They compared Corey which made full use of kernel core abstraction on every part of the benchmark and Corey which made use of kernel core for only one part of the implementation
+.By the first configuration, the throughput reached 11000 with only 5 cores which is more than twice the performance of traditional Linux's.
+\subsection{Improvements made by shares}
+Object or identifiers sharing between cores benefit a lot from shares abstraction. They compared the sharing in the global scope and the shared scope using shares.The performance with global scope sharing saturates as the number of cores increases, but that of the other configuration shows a linear increase.
+\end{document}
